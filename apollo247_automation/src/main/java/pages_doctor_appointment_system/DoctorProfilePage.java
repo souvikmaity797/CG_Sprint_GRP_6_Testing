@@ -14,10 +14,10 @@ public class DoctorProfilePage {
    }
    
    //Locators
-   @FindBy(id = "headlessui-tabs-tab-:r0:")
+   @FindBy(xpath = "//button[contains(.,'Consult Online')]")
    WebElement onlineConsultButton;
    
-   @FindBy(xpath = "(//span[text()='Schedule Appointment'])[1]")
+   @FindBy(xpath = "//div[@class='slots_buttons__AtQpB slots_switchProfileBookingCTA__hOBdH']/button/span[text()='Schedule Appointment']")
    WebElement scheduleAppointment;
    
    //Actions
