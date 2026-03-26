@@ -43,6 +43,17 @@
     <version>7.33.0</version>
     <scope>compile</scope>
 </dependency>
+<dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
+        <version>5.2.5</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi-ooxml</artifactId>
+        <version>5.2.5</version>
+    </dependency>
 
 <!-- Source: https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
 <dependency>

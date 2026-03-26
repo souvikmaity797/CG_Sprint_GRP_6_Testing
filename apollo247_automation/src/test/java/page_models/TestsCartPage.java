@@ -24,39 +24,80 @@ public class TestsCartPage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    
+    
+  @FindBy(xpath="//span[@class='PatientCartItems_percentDisc__c_03D']")
+		  WebElement discount;
 
-    // 🏷️ Coupon Input Box
+
+  
+  @FindBy(xpath="//span[contains(text(),'Lipid Profile Test')]")
+  WebElement cartcontent;
+
+  @FindBy(xpath="//span[@class='PatientCartItems_slashPrice__7VGKn']")
+  WebElement MRP;
+  
+    // Coupon Input Box
     @FindBy(xpath = "//input[@placeholder='Enter Coupon Code']")
     WebElement couponInput;
 
-    // ✅ Apply Coupon Button
+    //  Apply Coupon Button
     @FindBy(xpath = "//span[contains(text(),'Offers and Coupons')]")
     WebElement applyCouponBtn;
 
     //Get the span text
-    
     @FindBy(xpath = "//div[contains(@class,'Coupon_pinErrorMsg')]")
     WebElement couponErrorMsg;
-    // 🗑️ Remove item from cart
+    
+    
+    // Remove item from cart
     @FindBy(xpath = "//img[contains(@src,'ic_clearinput.svg')]")
     WebElement removeFromCartBtn;
 
-    // 💰 Total Payable Amount
+    // Total Payable Amount
     @FindBy(xpath = "//span[contains(text(),\"Proceed to Pay\")]")
     WebElement toPayAmount;
+    
+ 
+    @FindBy(xpath = " //span[contains(text(),'Cancel')]")
+    WebElement couponcancelBtn;
+    
+    
+    @FindBy(xpath = " (//div[contains(@class,'PatientCartItems_tileHead')]//div)[2]")
+    WebElement iteminCart;
+    
+    
+    
 
     // ---------------- ACTION METHODS ----------------
 
+    
+    	public String getMRP() {
+    		return MRP.getText();
+    	}
 
-
+    	public String getDiscount() {
+    		return discount.getText();
+    	}
+    
+    
+    	public String getCartContent() {
+    		return cartcontent.getText();
+    	}
+    
+    
     // Enter coupon
-    public String enterCoupon(String coupon) {
+    public void enterCoupon(String coupon) {
         wait.until(ExpectedConditions.visibilityOf(couponInput));
         couponInput.clear();
         couponInput.sendKeys(coupon,Keys.ENTER);
         
-        return couponErrorMsg.getText();
         
+        
+    }
+    
+    public String getCouponErrMsg() {
+    	return couponErrorMsg.getText();
     }
 
     // Apply coupon
@@ -72,7 +113,22 @@ public class TestsCartPage {
         wait.until(ExpectedConditions.elementToBeClickable(removeFromCartBtn));
         removeFromCartBtn.click();
     }
+    
+    	
+    public void clickCancel() {
+    	couponcancelBtn.click();
+    }
 
+    	public String itemOnCart(){
+    	String fullText = iteminCart.getText();  
+    	// "1 Item | 30 tests included | ₹409"
+
+    	// Extract only item count
+    	String itemCount = fullText.split(" ")[0];  // 1
+
+    	return itemCount;
+    
+    	}
     // Get To Pay amount
     public String getToPayAmount() {
         wait.until(ExpectedConditions.visibilityOf(toPayAmount));

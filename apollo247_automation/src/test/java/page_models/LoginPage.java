@@ -24,17 +24,19 @@ public class LoginPage {
 	}
 	
 	public void closePopup() {
+	    try {
+	        WebElement shadowHost = wait.until(
+	            ExpectedConditions.presenceOfElementLocated(By.cssSelector("ct-web-popup-imageonly"))
+	        );
 
-        WebElement shadowHost = wait.until(
-            ExpectedConditions.presenceOfElementLocated(By.cssSelector("ct-web-popup-imageonly"))
-        );
+	        SearchContext shadowRoot = shadowHost.getShadowRoot();
+	        WebElement closeBtn = shadowRoot.findElement(By.cssSelector(".close"));
+	        closeBtn.click();
 
-        SearchContext shadowRoot = shadowHost.getShadowRoot();
-
-        WebElement closeBtn = shadowRoot.findElement(By.cssSelector(".close"));
-
-        closeBtn.click();
-    }
+	    } catch (Exception e) {
+	        System.out.println("Popup not present, skipping...");
+	    }
+	}
 	
 	@FindBy(xpath = "//span[text()=\"Login\"]")
 	WebElement login;
@@ -42,11 +44,29 @@ public class LoginPage {
 	@FindBy(name = "mobileNumber")
 	WebElement mob;
 	
+	@FindBy(xpath = "//button[text()=\"Verify\"]")
+	WebElement verifyBtn;
+	
+	@FindBy(xpath = "//button[@class=\"SignIn_submitBtn__k9oGb\"]")
+	WebElement continueBtn;
+	
 	public void clickLogin() {
+	    wait.until(ExpectedConditions.elementToBeClickable(login));
 		login.click();
 	}
 	
 	public void enterMob(String num) {
-		mob.sendKeys(num+Keys.ENTER);
+		wait.until(ExpectedConditions.visibilityOf(mob));
+		mob.sendKeys(num);
 	}
+	
+	public void clickContinue() {
+		continueBtn.click();
+	}
+	
+	public void clickVerify() throws InterruptedException {
+		Thread.sleep(20000);
+		verifyBtn.click();
+	}
+	
 }

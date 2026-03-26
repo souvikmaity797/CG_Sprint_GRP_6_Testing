@@ -1,6 +1,8 @@
 
 package page_models;
 
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,12 +18,14 @@ public class HomePage {
         PageFactory.initElements(driver, this);
     }
 
-    // Locator for "Lab Tests" menu/button
-    @FindBy(xpath = "//a[contains(@href,'lab-tests')]")
+    // Locator for "Lab Tests" 
+    @FindBy(xpath = "//a[contains(text(),'Lab Tests')]")
     WebElement labTestsLink;
 
+    
     // Action method to click Lab Tests
-    public void clickLabTests() {
+    public void clickLabTests() throws InterruptedException {
+    	Thread.sleep(2000);
         labTestsLink.click();
     }
 
