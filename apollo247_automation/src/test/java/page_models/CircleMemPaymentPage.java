@@ -4,7 +4,7 @@ package page_models;
 
 import java.time.Duration;
 
-
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,6 +39,10 @@ public class CircleMemPaymentPage {
     //Expire Date
     @FindBy(xpath = "//input[@name='card_exp_month']")
     WebElement expiryDate;
+    
+    //expiryMonth
+    @FindBy(xpath = "//input[@name='card_exp_month']")
+    WebElement expiryMonth;
 
     // CVV
     @FindBy(xpath = "//input[contains(@placeholder,'CVV')]")
@@ -58,28 +62,61 @@ public class CircleMemPaymentPage {
     	creditCardOption.click();
     }
 
+
+    
+
+    // Frame 2 - Card Number
+    
+
+   
     public void enterName(String name) {
        // wait.until(ExpectedConditions.visibilityOf(nameOnCard));
+    	
+    	driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='name_on_card_iframe']")));
         nameOnCard.clear();
         nameOnCard.sendKeys(name);
+        driver.switchTo().defaultContent();
     }
 
     public void enterCardNumber(String number) {
        // wait.until(ExpectedConditions.visibilityOf(cardNumber));
-        cardNumber.clear();
-        cardNumber.sendKeys(number);
+    	driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='card_number_iframe']")));
+    	 cardNumber.clear();
+         cardNumber.sendKeys(number);
+        driver.switchTo().defaultContent();
+       
     }
 
-    public void enterExpiry(String expiry) {
+    public void enterExpirymonth(String month) {
       //  wait.until(ExpectedConditions.visibilityOf(expiryDate));
+    	driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='card_exp_month_iframe']")));
+    	
         expiryDate.clear();
-        expiryDate.sendKeys(expiry);
+        expiryDate.sendKeys(month);
+        driver.switchTo().defaultContent();
+        
     }
+    
+    public void enterExpiryyear(String year) throws InterruptedException {
+        //  wait.until(ExpectedConditions.visibilityOf(expiryDate));
+    	
+    	Thread.sleep(2000);
+    	driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='card_exp_year_iframe']")));
+    	
+          expiryMonth.clear();
+          expiryMonth.sendKeys(year);
+          driver.switchTo().defaultContent();
+          
+      }
 
-    public void enterCVV(String cvvCode) {
+    public void enterCVV(String cvvCode) throws InterruptedException {
       //  wait.until(ExpectedConditions.visibilityOf(cvv));
+    	Thread.sleep(2000);
+    	driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='security_code_iframe']")));
         cvv.clear();
         cvv.sendKeys(cvvCode);
+        driver.switchTo().defaultContent();
+        
     }
 
     public void clickPay() {
@@ -93,10 +130,11 @@ public class CircleMemPaymentPage {
     }
 
     // Combined method 
-    public void makePayment(String name, String card, String expiry, String cvvCode) {
+    public void makePayment(String name, String card, String mon,String year, String cvvCode) throws InterruptedException {
         enterName(name);
         enterCardNumber(card);
-        enterExpiry(expiry);
+        enterExpirymonth(mon);
+        enterExpiryyear(year);
         enterCVV(cvvCode);
         clickPay();
         

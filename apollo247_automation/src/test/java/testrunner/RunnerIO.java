@@ -1,7 +1,6 @@
 package testrunner;
 
 
-
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
@@ -13,4 +12,13 @@ import io.cucumber.testng.CucumberOptions;
         monochrome = true
 )
 public class RunnerIO extends AbstractTestNGCucumberTests {
+	
+	/**
+     * Overriding scenarios() with parallel=true tells TestNG to run
+     * each row returned by the DataProvider (i.e. each Cucumber scenario)
+     * in a separate thread simultaneously.
+     *
+     * Thread count is controlled by the <thread-count> in testng.xml.
+     */
+ 
 }
