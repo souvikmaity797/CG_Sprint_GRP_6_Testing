@@ -92,51 +92,18 @@
     <artifactId>poi-ooxml</artifactId>
     <version>5.2.5</version>
 </dependency>
+<dependency>
+    <groupId>com.aventstack</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>5.1.1</version>
+</dependency>
+
+<!-- Extent Cucumber Adapter -->
+<dependency>
+    <groupId>tech.grasshopper</groupId>
+    <artifactId>extentreports-cucumber7-adapter</artifactId>
+    <version>1.14.0</version>
+</dependency>
   </dependencies>
-  
-   <build>
-        <plugins>
- 
-            <!-- ── Maven Compiler ─────────────────────────────────────────── -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.12.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
- 
-            <!-- ── Maven Surefire (TestNG runner) ─────────────────────────── -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
-                <configuration>
- 
-                    <!-- Point at the testng.xml suite file -->
-                    <suiteXmlFiles>
-                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
-                    </suiteXmlFiles>
- 
-                    <!-- Pass browser system property into each forked JVM -->
-                    <systemPropertyVariables>
-                        <browser>${browser}</browser>
-                    </systemPropertyVariables>
- 
-                    <!--
-                        Scenario-level threads are controlled inside testng.xml
-                        via data-provider-thread-count on RunnerIO.scenarios().
-                        Surefire itself does not need extra forkCount here.
-                    -->
-                    <forkCount>1</forkCount>
-                    <reuseForks>true</reuseForks>
- 
-                </configuration>
-            </plugin>
- 
-        </plugins>
-    </build>
-  
+
 </project>
